@@ -1,5 +1,6 @@
 package com.cengiztoru.letslearncompose.ui.widgets
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -21,7 +22,12 @@ fun LetsLearnCompose() {
 
 }
 
-@Preview
+@Preview(name = "Light Mode", showBackground = true)
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
 @Composable
 fun LetsLearnComposePreview() {
     val message = Message("MainAct", "LetsLearnCompose")
