@@ -11,7 +11,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -25,7 +26,7 @@ import com.cengiztoru.letslearncompose.data.model.Message
 import com.cengiztoru.letslearncompose.utils.extensions.noRippleClickable
 
 @Composable
-fun MessageCard(msg: Message) {
+fun MessageCard(message: Message, onExpandStateChanged: (item: Message) -> Unit) {
     Row(
         modifier = Modifier
             .padding(8.dp)
@@ -46,12 +47,10 @@ fun MessageCard(msg: Message) {
         // Add a horizontal space between the image and the column
         Spacer(modifier = Modifier.width(8.dp))
 
-        var isExpanded by remember { mutableStateOf(false) }
-
         val animationDuration = 3000
 
         val surfaceColor: Color by animateColorAsState(
-            if (isExpanded) MaterialTheme.colors.secondary else MaterialTheme.colors.surface,
+            if (message.isExpanded) MaterialTheme.colors.secondary else MaterialTheme.colors.surface,
             tween(
                 durationMillis = animationDuration // 3 seconds duration
             )
@@ -59,7 +58,7 @@ fun MessageCard(msg: Message) {
 
         Column {
             Text(
-                text = msg.author,
+                text = message.author,
                 color = MaterialTheme.colors.secondaryVariant,
                 style = MaterialTheme.typography.subtitle2
             )
@@ -67,7 +66,7 @@ fun MessageCard(msg: Message) {
 
             Surface(
                 modifier = Modifier
-                    .noRippleClickable { isExpanded = isExpanded.not() }
+                    .noRippleClickable { onExpandStateChanged.invoke(message) }
                     .fillMaxWidth()
                     .animateContentSize(tween(animationDuration)),
                 shape = MaterialTheme.shapes.medium,
@@ -76,8 +75,8 @@ fun MessageCard(msg: Message) {
                 border = BorderStroke(0.dp, MaterialTheme.colors.secondary)
             ) {
                 Text(
-                    text = msg.body, modifier = Modifier.padding(16.dp),
-                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+                    text = message.body, modifier = Modifier.padding(16.dp),
+                    maxLines = if (message.isExpanded) Int.MAX_VALUE else 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.body2
                 )
@@ -90,5 +89,7 @@ fun MessageCard(msg: Message) {
 @Preview
 @Composable
 fun PreviewMessageCard() {
-    MessageCard(Message("Cengiz", "Hi folks 👋"))
+    MessageCard(Message("Cengiz", "Hi folks 👋")) {
+
+    }
 }

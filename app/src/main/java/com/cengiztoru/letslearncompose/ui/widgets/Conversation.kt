@@ -9,10 +9,10 @@ import com.cengiztoru.letslearncompose.utils.SampleData
 
 
 @Composable
-fun Conversation(messages: List<Message>) {
+fun Conversation(messages: List<Message>, onExpandStateChanged: (item: Message) -> Unit) {
     LazyColumn {
         items(messages) { message ->
-            MessageCard(msg = message)
+            MessageCard(message = message, onExpandStateChanged)
         }
     }
 
@@ -22,7 +22,7 @@ fun Conversation(messages: List<Message>) {
 @Composable
 fun ConversationPreview() {
     val mockChatList: List<Message> = SampleData.getMockChatList()
-    Conversation(messages = mockChatList)
+    Conversation(messages = mockChatList, {})
 }
 
 
