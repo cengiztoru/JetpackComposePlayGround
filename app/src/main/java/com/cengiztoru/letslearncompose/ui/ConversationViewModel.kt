@@ -13,7 +13,7 @@ class ConversationViewModel : ViewModel() {
     fun itemExpandStateChanged(changedItem: Message) {
         val currentList = messages.value.toMutableList()
         currentList.forEachIndexed { index, item ->
-            if (changedItem == item) {
+            item.takeIf { changedItem == it }?.let {
                 currentList[index] = changedItem.copy(isExpanded = changedItem.isExpanded.not())
             }
         }
