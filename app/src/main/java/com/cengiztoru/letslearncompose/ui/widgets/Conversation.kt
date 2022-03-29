@@ -9,10 +9,10 @@ import com.cengiztoru.letslearncompose.utils.SampleData
 
 
 @Composable
-fun Conversation(messages: List<Message>, onExpandStateChanged: (item: Message) -> Unit) {
+fun Conversation(messages: List<Message>, onExpandStateChange: (item: Message) -> Unit) {
     LazyColumn {
         items(messages) { message ->
-            MessageCard(message = message, onExpandStateChanged)
+            MessageCard(message = message, onExpandStateChange)
         }
     }
 

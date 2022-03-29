@@ -26,7 +26,7 @@ import com.cengiztoru.letslearncompose.data.model.Message
 import com.cengiztoru.letslearncompose.utils.extensions.noRippleClickable
 
 @Composable
-fun MessageCard(message: Message, onExpandStateChanged: (item: Message) -> Unit) {
+fun MessageCard(message: Message, onExpandStateChange: (item: Message) -> Unit) {
     Row(
         modifier = Modifier
             .padding(8.dp)
@@ -66,7 +66,7 @@ fun MessageCard(message: Message, onExpandStateChanged: (item: Message) -> Unit)
 
             Surface(
                 modifier = Modifier
-                    .noRippleClickable { onExpandStateChanged.invoke(message) }
+                    .noRippleClickable { onExpandStateChange.invoke(message) }
                     .fillMaxWidth()
                     .animateContentSize(tween(animationDuration)),
                 shape = MaterialTheme.shapes.medium,

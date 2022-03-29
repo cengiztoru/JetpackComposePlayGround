@@ -10,7 +10,7 @@ class ConversationViewModel : ViewModel() {
     var messages = mutableStateOf(SampleData.getMockChatList())
         private set
 
-    fun itemExpandStateChanged(changedItem: Message) {
+    fun onMessageExpandStateChange(changedItem: Message) {
         val currentList = messages.value.toMutableList()
         currentList.forEachIndexed { index, item ->
             item.takeIf { changedItem == it }?.let {
